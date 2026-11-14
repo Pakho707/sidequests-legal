@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["F8N3US8N4R.com.martinsailliez.sidequests"],
+        "components": [
+          { "/": "/add/*", "comment": "Crew invites: the app opens on the friend who sent the link." }
+        ]
+      }
+    ]
+  }
+}

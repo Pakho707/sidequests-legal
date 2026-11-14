@@ -2,110 +2,199 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Side Quests: help, privacy and rules</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Side Quests: real-life quests, real stories</title>
+<meta name="description" content="318 real-life quests to do with your friends. Draw a quest, do it for real, keep the story. Free on iPhone.">
+<meta property="og:title" content="Side Quests: IRL">
+<meta property="og:description" content="Real-life quests, real stories. Free on iPhone.">
+<meta property="og:image" content="https://sidequestsirl.app/img/cliff-jump.jpg">
+<meta name="apple-itunes-app" content="app-id=6831467074">
+<link rel="icon" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Knewave&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: dark; --bg: #0d0e11; --text: #ece7df; --muted: #a39d94; --accent: #e0553a; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 32px 16px 64px; }
-  h1 { font-size: 30px; margin: 0 0 4px; }
-  h2 { font-size: 22px; margin: 40px 0 8px; color: var(--accent); }
-  h3 { font-size: 17px; margin: 24px 0 4px; }
-  p, li { color: var(--text); }
-  .muted { color: var(--muted); font-size: 15px; }
-  a { color: var(--accent); }
-  ul { padding-left: 20px; }
+  /* The app's look: near-black, the chili red, cream buttons, the brush font, real photos in white-edged cards. */
+  :root {
+    color-scheme: dark;
+    --bg: #0d0e11; --card: #1a1b1f; --stroke: #2c2d33; --text: #ece7df; --muted: #a39d94;
+    --accent: #C63A1F; --cream: #F4EBDD; --ink: #17130f; --stamp: #F0A27A;
+    --easy: #4fbf6a; --medium: #e8c547; --hard: #f08a3c; --legendary: #a77bf3;
+    --brush: Knewave, "Arial Black", sans-serif;
+    --body: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: radial-gradient(ellipse 120% 55% at 50% 0%, #3a1610 0%, var(--bg) 70%) var(--bg);
+    color: var(--text); font: 17px/1.55 var(--body);
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+
+  header { display: flex; align-items: center; justify-content: space-between; padding-block: 18px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 400 24px var(--brush); }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  header nav { display: flex; gap: 18px; font-size: 15px; color: var(--muted); }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--text); }
+
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding-block: 40px 70px; }
+  .stamp { font: 700 13px var(--mono); letter-spacing: 3px; color: var(--stamp); }
+  h1 { font: 400 clamp(56px, 9vw, 104px)/0.95 var(--brush); margin: 12px 0 18px; text-wrap: balance; }
+  .lead { font-size: 20px; color: #d8d2c8; max-width: 30em; margin: 0 0 28px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .button { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; border-radius: 999px; font-weight: 700; text-decoration: none; }
+  .button.primary { background: var(--cream); color: var(--ink); }
+  .button.ghost { border: 1px solid var(--stroke); background: var(--card); }
+  .note { font-size: 14px; color: var(--muted); }
+
+  .deck { position: relative; height: 470px; }
+  .qcard { position: absolute; width: 270px; height: 390px; border-radius: 24px; overflow: hidden; border: 3px solid rgba(255,255,255,.92);
+           box-shadow: 0 18px 40px rgba(0,0,0,.55); background: #222 center/cover; }
+  .qcard::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 42%, rgba(0,0,0,.86)); }
+  .qcard .info { position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 1; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.45); }
+  .qcard h3 { font: 400 32px/1.05 var(--brush); margin: 8px 0 6px; }
+  .qcard p { font-size: 14px; margin: 0; color: rgba(255,255,255,.9); }
+  .c1 { left: 6%; top: 40px; transform: rotate(-8deg); filter: brightness(.7); }
+  .c2 { right: 2%; top: 30px; transform: rotate(7deg); filter: brightness(.7); }
+  .c3 { left: 50%; top: 0; transform: translateX(-50%) rotate(-1deg); }
+  .add { position: absolute; z-index: 2; top: 22px; left: 18px; transform: rotate(-14deg); font: 900 26px var(--body); letter-spacing: 2px;
+         color: var(--easy); border: 4px solid var(--easy); border-radius: 8px; padding: 0 10px; }
+
+  section { padding-block: 60px; }
+  h2 { font: 400 clamp(40px, 6vw, 60px)/1 var(--brush); margin: 0 0 12px; text-wrap: balance; }
+  .sub { color: var(--muted); margin: 0 0 32px; max-width: 34em; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .step { background: var(--card); border: 1px solid var(--stroke); border-radius: 22px; overflow: hidden; }
+  .step .photo { aspect-ratio: 4 / 3; background: center/cover; }
+  .step .text { padding: 18px 20px 22px; }
+  .step .num { font: 700 12px var(--mono); letter-spacing: 2px; color: var(--stamp); }
+  .step h3 { font-size: 21px; margin: 6px 0 4px; }
+  .step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .crew { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .panel { background: var(--card); border: 1px solid var(--stroke); border-radius: 22px; padding: 24px; }
+  .panel h3 { font-size: 20px; margin: 0 0 6px; }
+  .panel p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .ranks { display: flex; flex-wrap: wrap; gap: 8px; }
+  .rank { font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--stroke); background: var(--card); }
+  .rank.top { border-color: var(--accent); color: #fff; background: rgba(198,58,31,.18); }
+  .rank b { font: 700 11px var(--mono); color: var(--stamp); margin-left: 6px; }
+
+  .final { text-align: center; padding-block: 70px 90px; }
+  .final h2 { font-size: clamp(44px, 7vw, 72px); }
+
+  footer { border-top: 1px solid var(--stroke); padding-block: 26px 40px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; padding-top: 16px; }
+    .deck { height: 430px; max-width: 420px; width: 100%; margin: 0 auto; }
+    .qcard { width: 230px; height: 340px; }
+    .steps, .crew { grid-template-columns: 1fr; }
+    header nav a.hide-small { display: none; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .c3 { animation: lean 3.2s ease-in-out 1s 1 both; }
+    @keyframes lean { 0%, 100% { transform: translateX(-50%) rotate(-1deg); } 30% { transform: translateX(-38%) rotate(5deg); } 65% { transform: translateX(-62%) rotate(-6deg); } }
+  }
 </style>
 </head>
 <body>
-<main>
-<h1>Side Quests</h1>
-<p class="muted">Help, privacy policy and community rules. Last updated: November 9, 2026.</p>
-<p>Side Quests is an iPhone app made by Martin Sailliez. Questions: <a href="mailto:contactinfo.sidequests@gmail.com">contactinfo.sidequests@gmail.com</a>.</p>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/"><img src="img/icon.png" alt="">Side Quests</a>
+    <nav>
+      <a class="hide-small" href="#how">How it works</a>
+      <a class="hide-small" href="#crew">Crew</a>
+      <a href="/legal/#support">Help</a>
+    </nav>
+  </header>
 
-<h2 id="support">Help</h2>
+  <div class="hero">
+    <div>
+      <div class="stamp">REAL LIFE. REAL STORIES.</div>
+      <h1>Side Quests</h1>
+      <p class="lead">318 real-life quests to do with your friends: cliff jumps, night swims, road trips with no plan. Do them for real, keep the story, and have lore to tell in twenty years.</p>
+      <div class="cta">
+        <a class="button primary" href="https://apps.apple.com/app/id6831467074">Get it on the App Store</a>
+        <span class="note">Free on iPhone. No ads.</span>
+      </div>
+    </div>
+    <div class="deck" aria-hidden="true">
+      <div class="qcard c1" style="background-image:url(img/northern-lights.jpg)"><div class="info"><span class="pill" style="color:var(--medium)">Medium · +400 aura</span><h3>Northern Lights</h3></div></div>
+      <div class="qcard c2" style="background-image:url(img/sunset-fire.jpg)"><div class="info"><span class="pill" style="color:var(--easy)">Easy · +150 aura</span><h3>Sunset Fire</h3></div></div>
+      <div class="qcard c3" style="background-image:url(img/cliff-jump.jpg)"><span class="add">ADD</span><div class="info"><span class="pill" style="color:var(--hard)">Hard · +500 aura</span><h3>Cliff Jump</h3><p>Jump into water from 5 m or higher.</p></div></div>
+    </div>
+  </div>
+</div>
 
-<h3>Completing a quest</h3>
-<p>Open the quest and tap Complete. Only the date is needed; add the place, who was there, your story, photos and videos if you like. Group quests need at least one person in "Who was there": a friend's @username or any name typed by hand.</p>
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="sub">No to-do list, no streak to feed. A deck of quests, and the memories you bring back.</p>
+    <div class="steps">
+      <div class="step"><div class="photo" style="background-image:url(img/cardboard-regatta.jpg)"></div><div class="text"><div class="num">STEP 1</div><h3>Draw a quest</h3><p>Swipe right to keep it, left to skip. Or browse all 318, from Easy to Legendary.</p></div></div>
+      <div class="step"><div class="photo" style="background-image:url(img/catch-a-wave.jpg)"></div><div class="text"><div class="num">STEP 2</div><h3>Do it for real</h3><p>Then tap Complete: the date, the place, who was there, your photos and the story.</p></div></div>
+      <div class="step"><div class="photo" style="background-image:url(img/wild-camp.jpg)"></div><div class="text"><div class="num">STEP 3</div><h3>Earn aura</h3><p>Every quest gives aura. Climb from NPC to Infinite Aura and unlock achievements.</p></div></div>
+    </div>
+  </div>
+</section>
 
-<h3>Adding friends</h3>
-<p>Open the Crew tab and create your profile: a username and, if you want, a photo. Then tap Friends to search a username, or tap Invite friends to send your invite link: whoever taps it sends you a friend request, and people who don't have the app yet are sent to the App Store first.</p>
+<section id="crew">
+  <div class="wrap">
+    <h2>Better with your crew</h2>
+    <p class="sub">Add your friends with a username. Tag them in a quest, dare them to one, and see who has the most aura this week.</p>
+    <div class="crew">
+      <div class="panel"><h3>Your lore, your friends only</h3><p>Memories are shared with your friends and nobody else, encrypted so only they can open them. Not even we can read them.</p></div>
+      <div class="panel"><h3>Invite in one tap</h3><p>Send your invite link: whoever taps it lands on your profile, ready to join your crew.</p></div>
+    </div>
+  </div>
+</section>
 
-<h3>My friends can't see my quests</h3>
-<p>Memories are shared with friends only, so you both need to have accepted each other. Make sure you both have the latest version of the app, then open the Crew tab on both iPhones.</p>
+<section>
+  <div class="wrap">
+    <h2>From NPC to Infinite Aura</h2>
+    <p class="sub">11 ranks. The first come fast. The last one takes about half the catalogue.</p>
+    <div class="ranks">
+      <span class="rank">NPC</span><span class="rank">Awakened NPC</span><span class="rank">Background Character</span>
+      <span class="rank">Side Character</span><span class="rank">Main Character</span><span class="rank">Aura Farmer</span>
+      <span class="rank">Storyteller</span><span class="rank">Campfire Legend</span><span class="rank">Living Legend</span>
+      <span class="rank">Final Boss</span><span class="rank top">Infinite Aura<b>50,000</b></span>
+    </div>
+  </div>
+</section>
 
-<h3>Getting your lore back</h3>
-<p>Your lore is backed up to your own iCloud automatically. If you delete the app or change iPhone, install it again with the same iCloud account and it comes back by itself. The backup needs free space in your iCloud.</p>
+<section class="final">
+  <div class="wrap">
+    <h2>Go make some lore</h2>
+    <p class="sub" style="margin: 0 auto 28px;">Free on iPhone. Your memories stay on your phone and in your own iCloud.</p>
+    <a class="button primary" href="https://apps.apple.com/app/id6831467074">Get it on the App Store</a>
+  </div>
+</section>
 
-<h3>Reporting or blocking someone</h3>
-<p>On their profile, tap the ••• button. Reports are reviewed within 24 hours.</p>
+<footer>
+  <div class="wrap">
+    <span>Side Quests is an iPhone app made by Martin Sailliez.</span>
+    <nav>
+      <a href="/legal/#privacy">Privacy</a>
+      <a href="/legal/#rules">Community rules</a>
+      <a href="/legal/#support">Help</a>
+      <a href="mailto:contactinfo.sidequests@gmail.com">Contact</a>
+    </nav>
+  </div>
+</footer>
 
-<h3>Deleting your account</h3>
-<p>Profile, the ••• button, Delete account.</p>
-
-<h3>Anything else</h3>
-<p>Write to <a href="mailto:contactinfo.sidequests@gmail.com">contactinfo.sidequests@gmail.com</a>.</p>
-
-<h2 id="privacy">Privacy policy</h2>
-
-<h3>The short version</h3>
-<ul>
-  <li>Your lore stays on your iPhone and in your own iCloud. We can't read it.</li>
-  <li>If you create a profile, your username, profile photo and aura are visible to other people using the app.</li>
-  <li>Your memories are shared with your friends only, encrypted so that only they can open them.</li>
-  <li>No ads, no tracking, no analytics. Nothing is sold. The only company involved is Apple, which runs iCloud.</li>
-</ul>
-
-<h3>What stays with you</h3>
-<p>The quests you complete, with their date, place, the people who were there, your story and your photos and videos, are kept on your iPhone. A copy is saved in your own iCloud account so it comes back if you reinstall the app or change iPhone. Only you can read it. It counts towards your iCloud storage.</p>
-<p>The app never asks for your location: places are what you type. It only sees the photos and videos you pick yourself.</p>
-
-<h3>If you create a profile</h3>
-<p>Creating a profile is optional. When you do, these are stored in the app's public database on Apple's iCloud servers:</p>
-<ul>
-  <li>your username and profile photo, and your aura (total and this week), which other people using the app can see;</li>
-  <li>a random identifier Apple gives your iCloud account in this app, so the app recognises you after a reinstall. It is not your Apple ID or your email address;</li>
-  <li>a public key, which lets your friends' apps encrypt things for you alone;</li>
-  <li>your friend requests, friendships and the people you block. In the app, your friends can see your friends list; other people only see the friends they have in common with you;</li>
-  <li>the challenges you send (the quest and your message), and the notices that you tagged a friend;</li>
-  <li>the reports you make.</li>
-</ul>
-<p>The developer can see this public database, for instance to review reports.</p>
-
-<h3>Memories shared with friends</h3>
-<p>Once you have a profile, your completed quests, with their story, place, people, photos and videos, are encrypted on your iPhone and stored in the app's database on Apple's iCloud servers. Only your friends receive the key to open them: neither Apple nor the developer can read them. Large photos and videos are sent as lighter copies, and the photos' location and other details are removed. Removing a friend stops them from opening anything you share afterwards. They don't count towards your iCloud storage.</p>
-
-<h3>Notifications</h3>
-<p>If you allow them, Apple's notification service tells you about challenges, friend requests and tags. You can turn them off in your iPhone's Settings.</p>
-
-<h3>Deleting your data</h3>
-<p>To delete your profile: Profile, the ••• button, Delete account. This deletes your username, photo, friendships, challenges and the memories you shared. Your lore stays on your iPhone. Deleting the app deletes everything on your iPhone; the copy in your iCloud can be removed in Settings, your name, iCloud, Manage Storage.</p>
-
-<h3>Children</h3>
-<p>Side Quests is not meant for anyone under 16.</p>
-
-<h3>Changes</h3>
-<p>If this policy changes, the date at the top changes too.</p>
-
-<h2 id="rules">Community rules</h2>
-<p>By creating a profile, you agree to these rules. There is no tolerance for objectionable content or abusive people.</p>
-<ul>
-  <li>Nothing hateful: no slurs, no attacks on anyone for who they are.</li>
-  <li>Nothing sexual, and nothing showing or encouraging violence against someone.</li>
-  <li>No harassment, bullying or threats. Don't tag or dare people who don't want it.</li>
-  <li>Don't pretend to be someone else.</li>
-  <li>Only post photos you have the right to share, and of people who agree to it.</li>
-</ul>
-<p>Words that break these rules are hidden automatically, and usernames containing them are refused.</p>
-
-<h3>Reporting and blocking</h3>
-<p>On anyone's profile, the ••• button lets you report or block them. Reports are reviewed within 24 hours. Content that breaks the rules is removed, and so is the account of anyone who posted it.</p>
-
-<h3>Your quests, your responsibility</h3>
-<p>Side Quests suggests things to do. You decide what you do, how, and with whom. Know your limits, respect the law, other people and their property. You do every quest at your own risk.</p>
-
-<h3>Apple's terms</h3>
-<p>Apple's standard licence agreement for apps also applies: <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">apple.com/legal/internet-services/itunes/dev/stdeula</a>.</p>
-</main>
+<script>
+  // Old links pointed at one page with #privacy, #rules or #support: they now live under /legal/.
+  if (["#privacy", "#rules", "#support"].includes(location.hash)) {
+    location.replace("/legal/" + location.hash);
+  }
+</script>
 </body>
 </html>
